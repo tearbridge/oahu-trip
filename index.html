@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <title>欧胡岛 12/12–12/18 行程</title>
 <link rel="stylesheet" href="vendor/leaflet.css">
@@ -22,7 +23,7 @@ h2{font-size:19px;margin:6px 0 2px}
 .badges{margin:6px 0}
 .b{display:inline-block;white-space:nowrap;font-size:12px;border-radius:10px;padding:1px 8px;margin:0 4px 4px 0;border:1px solid}
 .b.land{color:var(--land);border-color:var(--land)}.b.sea{color:var(--sea);border-color:var(--sea)}
-.b.car{color:#fff;background:var(--car);border-color:var(--car)}.b.nocar{color:var(--ok);border-color:var(--ok)}.b.opt{color:#a16207;border-color:#a16207}
+.b.car{color:#fff;background:var(--car);border-color:var(--car)}.b.nocar{color:var(--ok);border-color:var(--ok)}.b.opt{color:#a16207;border-color:#a16207}.b.pick{color:#fff;background:#9f1239;border-color:#9f1239}
 .stop{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 11px;margin:8px 0;cursor:pointer}
 .stop.on{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
 .st-h{display:flex;gap:8px;align-items:baseline}
@@ -42,6 +43,7 @@ td,th{border-bottom:1px solid var(--line);padding:5px 4px;text-align:left;vertic
 .hotel{background:#111;width:26px;height:26px;border-radius:6px;font-size:14px}
 .foot{font-size:12px;color:var(--mut);margin-top:14px}
 @media(min-width:900px){#map{right:auto;width:58vw;height:100vh}#panel{top:0;left:58vw}}
+.leaflet-control-layers{font-size:12px;padding:2px 6px;border-radius:8px}.leaflet-control-layers label{margin:2px 0}
 </style>
 </head>
 <body>
@@ -55,119 +57,129 @@ td,th{border-bottom:1px solid var(--line);padding:5px 4px;text-align:left;vertic
 const HOTEL=[21.2766,-157.8250];
 const P={
  hnl:["檀香山机场 HNL",21.3245,-157.9251],
- lux:["Kalakaua 大牌街 + T Galleria",21.2797,-157.8297],
+ lux:["Kalakaua 大道品牌店 · T Galleria",21.2797,-157.8297],
  ala:["Ala Moana Center",21.2910,-157.8436],
  dh:["钻石头山",21.2620,-157.8060],
  ph:["珍珠港",21.3676,-157.9390],
  pali:["Pali 观景台",21.3667,-157.7933],
- kua:["Kualoa Ranch",21.5208,-157.8370],
+ kua:["Kualoa 牧场",21.5208,-157.8370],
  gio:["Giovanni's 虾车（Kahuku）",21.6797,-157.9476],
- lani:["Laniakea 海龟海滩",21.6190,-158.0850],
+ lani:["Laniakea 海滩",21.6190,-158.0850],
  hal:["Haleiwa 小镇",21.5928,-158.1031],
- halh:["Haleiwa 港（鲨鱼笼出发）",21.5960,-158.1045],
- pcc:["PCC 波利尼西亚文化中心",21.6390,-157.9200],
+ halh:["Haleiwa 港 · 鲨鱼笼",21.5960,-158.1045],
  han:["恐龙湾 Hanauma Bay",21.2690,-157.6940],
- kew:["Kewalo 港（浮潜船常见出发点）",21.2930,-157.8560],
- tc:["Turtle Canyon 浮潜点",21.2700,-157.8400],
- rh:["Royal Hawaiian Center / International Market Place",21.2795,-157.8290],
+ kew:["Kewalo 港（浮潜船集合点之一）",21.2930,-157.8560],
+ tc:["Turtle Canyon",21.2700,-157.8400],
+ rh:["Royal Hawaiian Center · International Market Place",21.2795,-157.8290],
  dq:["唐吉诃德 Don Quijote",21.2906,-157.8340],
- kap:["Kapahulu（牡丹虾 omakase，店待定）",21.2790,-157.8130]
+ kap:["牡丹虾晚餐（餐厅待定）",21.2790,-157.8130]
 };
-// car: yes / no / opt
 const DAYS=[
-{d:"12/12",w:"周六",title:"落地 · 逛大牌",type:["land"],car:"no",carNote:"机场到酒店打 Uber XL（3 人 + 行李，约 25 分钟）",
+{d:"12/12",w:"周六",title:"抵达 · Waikiki 逛街",type:["land"],car:"no",carNote:"机场到酒店叫 Uber XL，三个人加行李，约 25 分钟。",
  stops:[
-  {p:"hnl",t:"11:00",txt:"你们俩的航班落地；丈母娘国际航班同一上午到，出关约 1–1.5 小时，在机场会合。",bring:"丈母娘：护照、签证、EVUS、联程行程单。三个人：酒店确认截图。",warn:"丈母娘航班还没定，定了以后再对一下会合时间。"},
-  {p:"hotel",t:"12:30",txt:"到酒店，入住时间是 15:00，先把行李寄存在前台。入住时说一句积分房免 resort fee（award stay）。"},
-  {p:"lux",t:"13:30",txt:"Kalakaua 大道上的大牌店、T Galleria 免税店，从酒店步行几分钟就到。",bring:"舒服的鞋、护照（免税店可能要看）。"},
-  {p:"ala",t:"16:00",txt:"Ala Moana Center，步行大约 25 分钟，打车 5 分钟。"},
-  {p:"hotel",t:"18:30",txt:"早点吃晚饭、早点睡。国内来的人头一天傍晚会很困。"}]},
-{d:"12/13",w:"周日",title:"钻石头山日出 + 珍珠港",type:["land"],car:"opt",carNote:"两处都能打 Uber（钻石头山约 10 分钟，珍珠港约 25 分钟）；想自己开就从今天开始租",
+  {p:"hnl",t:"11:00",txt:"我们的航班 11:00 落地。妈妈的国际航班同一天上午到，出关大约需要 1 到 1.5 小时，在到达层会合。",bring:"妈妈：护照、美国签证、EVUS 登记记录、回程行程单。",warn:"妈妈的航班确定后，再核对会合时间。"},
+  {p:"hotel",t:"12:30",txt:"到酒店先寄存行李，15:00 起可以入住。积分房入住时，可以和前台确认免收 resort fee。"},
+  {p:"lux",t:"13:30",txt:"Kalakaua 大道上的品牌店和 T Galleria 免税店，从酒店步行几分钟就到。",bring:"护照（免税店可能需要出示）、好走的鞋。"},
+  {p:"ala",t:"16:00",txt:"Ala Moana Center，夏威夷最大的商场，打车约 5 分钟。"},
+  {p:"hotel",t:"18:30",txt:"晚饭安排早一些。刚到的第一天，傍晚通常最容易犯困。"}]},
+{d:"12/13",w:"周日",title:"钻石头山日出 · 珍珠港",type:["land"],car:"pick",carNote:"钻石头山打车约 10 分钟。上午在 Waikiki 门店取车，下午自驾去珍珠港。",
  stops:[
-  {p:"hotel",t:"05:40",txt:"出发。刚倒时差，凌晨三四点醒正好用上。"},
-  {p:"dh",t:"06:00",txt:"按预约时段入园，爬到顶大约 40 分钟，大半是上坡和台阶。12 月日出大约 7 点。看完下山约 8:30。",bring:"预约二维码、头灯或手机手电、水、运动鞋、薄外套（山顶早上有风）。",warn:"大约 11/13 开放预约（提前 30 天），早场很抢手。"},
-  {p:"hotel",t:"09:00",txt:"回酒店吃早饭、休息。"},
-  {p:"ph",t:"13:00",txt:"珍珠港亚利桑那号纪念馆，按票上的时段到，提前 30 分钟到场。整个参观约 2–3 小时。",bring:"只带手机、钱包、证件。",warn:"珍珠港不让带包进去（相机包、背包都不行），门口有付费寄存。现在就在 recreation.gov 订票。"},
-  {p:"hotel",t:"17:00",txt:"回 Waikiki，早点吃、早点睡。"}]},
-{d:"12/14",w:"周一",title:"东岸 + Kualoa 越野车 + 北岸",type:["land"],car:"yes",carNote:"必须开车，一天绕半个岛，开车总共约 3 小时",
+  {p:"hotel",t:"05:40",txt:"出发去钻石头山。刚到的头两天容易早醒，正好去看日出。"},
+  {p:"dh",t:"06:00",txt:"按预约时段入园，登顶约 40 分钟，大部分是上坡和台阶。12 月的日出在 7:00 前后，8:30 左右下山。",bring:"预约二维码、手电或头灯、饮用水、运动鞋、薄外套（山顶早上风大）。",warn:"需要预约。12/13 的名额在 11/13 开放（提前 30 天）。"},
+  {p:"hotel",t:"09:00",txt:"回酒店吃早饭、休息，上午去门店取车。"},
+  {p:"ph",t:"13:00",txt:"珍珠港亚利桑那号纪念馆，按票面时间提前 30 分钟到。整个参观约 2 到 3 小时。",bring:"手机、钱包、证件。",warn:"园区不允许带包入内（包括背包和相机包），门口有付费寄存。"},
+  {p:"hotel",t:"17:00",txt:"回 Waikiki。第二天出发很早，晚饭后早些休息。"}]},
+{d:"12/14",w:"周一",title:"北岸鲨鱼笼 · Kualoa 牧场",type:["sea","land"],car:"yes",carNote:"全天自驾，绕岛北半圈：先走 H2 去北岸，再沿东岸回来，开车合计约 2.5 小时。",
  stops:[
-  {p:"hotel",t:"07:30",txt:"开车出发。"},
-  {p:"pali",t:"07:50",txt:"Pali 观景台，看东岸悬崖和山谷，停 15–20 分钟。",bring:"外套（风非常大）、停车费（刷卡）。"},
-  {p:"kua",t:"09:00",txt:"Kualoa Ranch，UTV 越野车。9:30 那场的话，9:00 到前台签到，车程约 2 小时，11:30 左右结束。",bring:"驾照（开车的人）、不怕脏的深色衣服、墨镜、头绳、薄外套。",warn:"要提前订，选上午 9:30 左右的场次。"},
-  {p:"gio",t:"12:30",txt:"Giovanni's 虾车吃午饭（蒜蓉虾），从 Kualoa 开过去约 35 分钟。",warn:"中午排队可能要半小时。"},
-  {p:"lani",t:"14:00",txt:"Laniakea 海滩，常有海龟上岸晒太阳，在岸上看就行。",warn:"离海龟至少 3 米，不能摸。路边停车车多，要小心过马路。"},
-  {p:"hal",t:"15:00",txt:"Haleiwa 小镇，逛逛，吃 Matsumoto 刨冰。"},
-  {p:"pcc",t:"17:00",txt:"（可选）PCC 晚会 + 自助，Laie 在回程的东边路上。不去就从 Haleiwa 走 H2 直接回，约 1 小时。",warn:"去的话要提前订票；回到酒店会是晚上 10 点左右。"}]},
-{d:"12/15",w:"周二",title:"北岸鲨鱼笼",type:["sea"],car:"yes",carNote:"必须开车，Haleiwa 来回各约 1 小时",
+  {p:"hotel",t:"05:45",txt:"出发去北岸，车程约 1 小时。"},
+  {p:"halh",t:"06:45",txt:"Haleiwa 港签到，出海约 2 小时。人在笼子里，浮在水面附近，不需要会潜水。",bring:"晕船药（出发前 1 小时服用）、泳衣穿在里面、毛巾、一套干衣服、reef-safe 防晒、运动相机。",warn:"12 月北岸浪大，出海可能临时取消。预订时选可以免费改期的商家，取消了就改到 12/17。"},
+  {p:"hal",t:"09:30",txt:"上岸后在 Haleiwa 小镇吃早午饭，可以尝尝 Matsumoto 刨冰。"},
+  {p:"lani",t:"10:45",txt:"Laniakea 海滩，常有海龟上岸休息，在岸上就能看到。",warn:"与海龟保持 3 米以上的距离。这里是路边停车，过马路注意来车。"},
+  {p:"gio",t:"12:00",txt:"Giovanni's 虾车吃午饭，招牌是蒜蓉虾。",warn:"饭点可能要排队半小时左右。"},
+  {p:"kua",t:"13:30",txt:"Kualoa 牧场 UTV 越野车，提前 30 分钟签到，行程约 2 小时，会经过《侏罗纪公园》等电影的拍摄地。",bring:"驾照（开车的人）、深色旧衣服（会溅泥）、墨镜、头绳、薄外套。",warn:"选 14:00 左右开始的场次，具体以官网为准。"},
+  {p:"pali",t:"16:45",txt:"回程经过 Pali 观景台，看东岸的山崖，停留 15 分钟左右。",bring:"外套（风很大）、停车费（可刷卡）。"},
+  {p:"hotel",t:"17:30",txt:"回到酒店。这一天起得早，晚饭在附近简单吃。"}]},
+{d:"12/15",w:"周二",title:"Turtle Canyon 看海龟",type:["sea"],car:"no",carNote:"浮潜船在 Waikiki 附近集合，不少商家提供酒店接送。车停在酒店。",
  stops:[
-  {p:"hotel",t:"05:45",txt:"开车出发。"},
-  {p:"halh",t:"06:45",txt:"Haleiwa 港签到，出海约 2 小时，人在笼子里漂着，不用会潜水。",bring:"晕船药（出发前 1 小时吃）、泳衣直接穿在里面、毛巾、一套干衣服、reef-safe 防晒、GoPro。",warn:"12 月北岸浪大，经常临时取消。订能免费改期的那家，取消了就改到 12/17。"},
-  {p:"hal",t:"09:30",txt:"上岸后在 Haleiwa 吃早午饭。"},
-  {p:"hotel",t:"12:00",txt:"回酒店补觉，下午躺海滩或者在泳池休息。"}]},
-{d:"12/16",w:"周三",title:"恐龙湾浮潜 + 逛街",type:["sea"],car:"yes",carNote:"开车约 25 分钟；不想租就打 Uber（回程叫车可能要等）",
+  {p:"kew",t:"08:00",txt:"Turtle Canyon 浮潜团。上午风浪较小、水更清。船程约 15 分钟，全程 2 到 3 小时。",bring:"晕船药、泳衣、毛巾、reef-safe 防晒。船上会提供面镜，自带的更贴合。",warn:"集合地点以订单为准。"},
+  {p:"tc",t:"08:30",txt:"海龟常在这片礁石附近休息、觅食，浮在水面上就能看到。请不要触碰。"},
+  {p:"rh",t:"14:00",txt:"下午回酒店休息，或者去 Royal Hawaiian Center 和 International Market Place，都在步行范围内。"},
+  {p:"hotel",t:"18:00",txt:"晚上在 Kalakaua 大道散步。"}]},
+{d:"12/16",w:"周三",title:"恐龙湾浮潜",type:["sea"],car:"yes",carNote:"开车约 25 分钟，回来后中午还车。",
  stops:[
-  {p:"hotel",t:"06:45",txt:"出发。"},
-  {p:"han",t:"07:15",txt:"按预约时段入园，先看一段十几分钟的保护珊瑚短片，再走坡路下到海滩（也有付费的小车）。浮潜到 11 点左右。",bring:"预约确认 + 证件、门票（每人约 $25）、面镜呼吸管、水鞋、reef-safe 防晒、毛巾、水和零食。",warn:"12/14 夏威夷时间早上 7 点在官网抢票。周一、周二闭园。停车场小，早到。"},
-  {p:"rh",t:"14:00",txt:"回 Waikiki，逛 Royal Hawaiian Center 和 International Market Place，都在酒店附近，走路就到。"},
-  {p:"hotel",t:"18:00",txt:"晚上去 Kalakaua 大道逛夜街。今晚还车最方便。"}]},
-{d:"12/17",w:"周四",title:"Turtle Canyon 看海龟 + 牡丹虾",type:["sea"],car:"no",carNote:"浮潜船一般从 Waikiki 或 Kewalo 港出发，不少还包接送",
+  {p:"hotel",t:"06:45",txt:"出发去恐龙湾。"},
+  {p:"han",t:"07:15",txt:"按预约时段入园，先看一段十几分钟的保育短片，再步行下坡到海滩（也有付费接驳车）。浮潜到 11 点左右。",bring:"预约确认和证件、门票（每人约 $25）、面镜和呼吸管、水鞋、reef-safe 防晒、毛巾、饮用水。",warn:"每周一、二闭园。12/16 的名额在 12/14 夏威夷时间 7:00 开放预约。停车位少，尽量早到。"},
+  {p:"hotel",t:"12:00",txt:"回 Waikiki 还车。"},
+  {p:"dq",t:"14:00",txt:"下午去唐吉诃德买零食和伴手礼。"}]},
+{d:"12/17",w:"周四",title:"自由活动 · 牡丹虾晚餐",type:["land"],car:"no",carNote:"如果鲨鱼笼改到今天，需要再租一天车，或者选含 Waikiki 接送的团。",
  stops:[
-  {p:"kew",t:"08:00",txt:"Turtle Canyon 浮潜团，上午风浪小、水清，船程约 15 分钟，全程约 2–3 小时。",bring:"晕船药、泳衣、毛巾、reef-safe 防晒。面镜船上一般会提供，自带的更合适。",warn:"上船地点看订单。要是 12/15 的鲨鱼笼被取消，就改到今天下午。"},
-  {p:"tc",t:"08:30",txt:"海龟在礁石附近休息、进食，在水面漂着看就行。不能摸，要保持距离。"},
-  {p:"dq",t:"14:00",txt:"唐吉诃德扫零食和伴手礼，或者去海滩躺着。"},
-  {p:"kap",t:"18:30",txt:"牡丹虾大餐（botan ebi，在寿司店或 omakase）。",warn:"店还没定。订位时问清楚当天有没有牡丹虾。"}]},
-{d:"12/18",w:"周五",title:"返程",type:["land"],car:"no",carNote:"打 Uber XL 去机场，约 25 分钟",
+  {p:"hotel",t:"09:00",txt:"备用日。12/14 的鲨鱼笼如果因为风浪取消，就改到今天。没有改期的话，今天自由安排：海滩、泳池，或者再逛一次商场。"},
+  {p:"ala",t:"14:00",txt:"想补买东西的话，可以再去一趟 Ala Moana。"},
+  {p:"kap",t:"18:30",txt:"晚饭吃牡丹虾（botan ebi），寿司店或 omakase。",warn:"餐厅待定。订位时确认当天有没有牡丹虾。"}]},
+{d:"12/18",w:"周五",title:"返程",type:["land"],car:"no",carNote:"叫 Uber XL 去机场，约 25 分钟。",
  stops:[
-  {p:"hotel",t:"08:00",txt:"吃早饭，最后买点伴手礼。11:00 前退房，行李寄存在前台。"},
-  {p:"hnl",t:"11:30",txt:"出发去机场。你们俩的航班 13:43 起飞，20:50 到 SJC。丈母娘的国际航班最好也是中午到下午起飞。",bring:"护照（丈母娘）、所有液体放托运、在 App 里值机。",warn:"退房时看一眼积分房的账单，有没有多收 resort fee。"}]}
+  {p:"hotel",t:"08:00",txt:"早饭后买些伴手礼，11:00 前退房，行李寄存在前台。退房时核对一下积分房的账单。"},
+  {p:"hnl",t:"11:30",txt:"出发去机场。我们的航班 13:43 起飞，20:50 到 SJC。妈妈的回国航班建议选中午到下午起飞的，可以一起去机场。",bring:"妈妈的护照；液体放托运；提前在 App 上值机。"}]}
+];
+const BOOK=[
+ ["已开放","珍珠港（12/13 下午）","提前 8 周开放，10/18 起可订；名额满了的话，前一天还会放出少量票","11/1 前"],
+ ["已开放","酒店：补订 12/17 一晚","","10/31 前"],
+ ["已开放","鲨鱼笼（12/14 早上）","选可免费改期的","11/15 前"],
+ ["已开放","Kualoa 牧场 UTV（12/14 下午）","","11/15 前"],
+ ["已开放","Turtle Canyon 浮潜（12/15 上午）","","11/15 前"],
+ ["已开放","租车（12/13 上午 – 12/16 中午）","选可免费取消的","11/15 前"],
+ ["已开放","牡丹虾晚餐（12/17）","","11/30 前"],
+ ["11/13","钻石头山（12/13 早场）","提前 30 天开放","开放当天"],
+ ["12/14 7:00","恐龙湾（12/16）","夏威夷时间，提前 2 天开放","开放当天"]
 ];
 const COL={land:"#b45309",sea:"#0e7490"};
 const map=L.map("map",{zoomControl:false}).setView([21.45,-157.95],10);
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(map);
+const ESRI="https://server.arcgisonline.com/ArcGIS/rest/services/";
+const sat=L.layerGroup([L.tileLayer(ESRI+"World_Imagery/MapServer/tile/{z}/{y}/{x}",{maxZoom:18,attribution:"Esri, Maxar, Earthstar Geographics"}),L.tileLayer(ESRI+"Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}",{maxZoom:18})]);
+const street=L.tileLayer(ESRI+"World_Street_Map/MapServer/tile/{z}/{y}/{x}",{maxZoom:18,attribution:"Esri"});
+const osm=L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"});
+sat.addTo(map);
+L.control.layers({"卫星":sat,"街道":street,"OpenStreetMap":osm},null,{position:"topleft",collapsed:false}).addTo(map);
 L.control.zoom({position:"topright"}).addTo(map);
-L.marker(HOTEL,{icon:L.divIcon({className:"",html:'<div class="pin hotel">🏨</div>',iconSize:[26,26],iconAnchor:[13,13]}),zIndexOffset:900}).bindPopup("<b>酒店（Waikiki）</b><br>两间都在这里").addTo(map);
+L.marker(HOTEL,{icon:L.divIcon({className:"",html:'<div class="pin hotel">🏨</div>',iconSize:[26,26],iconAnchor:[13,13]}),zIndexOffset:900}).bindPopup("<b>酒店（Waikiki）</b>").addTo(map);
 const layer=L.layerGroup().addTo(map);let mk=[];
 const pt=k=>k==="hotel"?HOTEL:[P[k][1],P[k][2]];
 const nm=k=>k==="hotel"?"酒店":P[k][0];
-const esc=s=>String(s||"");
 function tabs(){const el=document.getElementById("tabs");
-  el.innerHTML=DAYS.map((d,i)=>`<button class="tab" data-i="${i}">${d.d} ${d.w}${d.car==="yes"?'<span class="c">🚗</span>':""}</button>`).join("")+`<button class="tab" data-i="all">总览 · 租车</button>`;
+  el.innerHTML=DAYS.map((d,i)=>`<button class="tab" data-i="${i}">${d.d} ${d.w}${d.car==="yes"||d.car==="pick"?'<span class="c">🚗</span>':""}</button>`).join("")+`<button class="tab" data-i="all">总览</button>`;
   el.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{show(b.dataset.i);location.hash=b.dataset.i;});}
-function carBadge(c){return c==="yes"?'<span class="b car">🚗 要开车</span>':c==="opt"?'<span class="b opt">🚗 可开可不开</span>':'<span class="b nocar">不用车</span>';}
+function carBadge(c){return c==="yes"?'<span class="b car">🚗 自驾</span>':c==="pick"?'<span class="b pick">🚗 上午取车</span>':c==="opt"?'<span class="b opt">🚗 可选</span>':'<span class="b nocar">不用车</span>';}
 function show(i){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.i===String(i)));
   layer.clearLayers();mk=[];const box=document.getElementById("day");document.getElementById("panel").scrollTop=0;
   if(i==="all"){overview(box);return;}
   const d=DAYS[+i];const color=COL[d.type[0]];
   const pts=d.stops.map(s=>pt(s.p));
-  L.polyline(pts,{color,weight:4,opacity:.75,dashArray:"8 7"}).addTo(layer);
-  const seen={};
-  d.stops.forEach((s,j)=>{const key=s.p+pts[j];if(s.p==="hotel"){mk.push(null);return;}
+  L.polyline(pts,{color:"#fff",weight:7,opacity:.6}).addTo(layer);
+  L.polyline(pts,{color,weight:4,opacity:.95,dashArray:"8 7"}).addTo(layer);
+  d.stops.forEach((s,j)=>{if(s.p==="hotel"){mk.push(null);return;}
     const m=L.marker(pt(s.p),{icon:L.divIcon({className:"",html:`<div class="pin" style="background:${color}">${j+1}</div>`,iconSize:[24,24],iconAnchor:[12,12]})}).bindPopup(`<b>${s.t} ${nm(s.p)}</b><br>${s.txt}`).addTo(layer);mk.push(m);});
   map.flyToBounds(L.latLngBounds(pts.concat([HOTEL])).pad(.25),{duration:.8,maxZoom:14});
   let h=`<h2>${d.d} ${d.w} · ${d.title}</h2><div class="badges">${d.type.map(t=>`<span class="b ${t}">${t==="sea"?"🌊 下水":"🏔 陆地"}</span>`).join("")}${carBadge(d.car)}</div><div class="sub">${d.carNote}</div>`;
-  h+=d.stops.map((s,j)=>`<div class="stop" data-j="${j}"><div class="st-h"><span class="num" style="background:${s.p==="hotel"?"#111":color}">${s.p==="hotel"?"🏨":j+1}</span><span class="t">${s.t}</span><span class="n">${nm(s.p)}</span></div><div class="st-b">${s.txt}</div>${s.bring?`<div class="bring">🎒 带：${s.bring}</div>`:""}${s.warn?`<div class="warn">⚠️ ${s.warn}</div>`:""}</div>`).join("");
-  h+=`<div class="foot">时间是预估，以订票、预约上的为准。地图上的虚线只是示意顺序，不是导航路线。</div>`;
+  h+=d.stops.map((s,j)=>`<div class="stop" data-j="${j}"><div class="st-h"><span class="num" style="background:${s.p==="hotel"?"#111":color}">${s.p==="hotel"?"🏨":j+1}</span><span class="t">${s.t}</span><span class="n">${nm(s.p)}</span></div><div class="st-b">${s.txt}</div>${s.bring?`<div class="bring">🎒 ${s.bring}</div>`:""}${s.warn?`<div class="warn">⚠️ ${s.warn}</div>`:""}</div>`).join("");
+  h+=`<div class="foot">时间为预估，以各项预约为准。地图上的虚线表示先后顺序，不是实际行车路线。</div>`;
   box.innerHTML=h;
   box.querySelectorAll(".stop").forEach(el=>el.onclick=()=>{const j=+el.dataset.j;box.querySelectorAll(".stop").forEach(x=>x.classList.toggle("on",x===el));const m=mk[j];
     if(m){map.flyTo(m.getLatLng(),13,{duration:.6});m.openPopup();}else map.flyTo(HOTEL,14,{duration:.6});});}
 function overview(box){
-  DAYS.forEach(d=>{const pts=d.stops.map(s=>pt(s.p));L.polyline(pts,{color:d.car==="yes"?"#be123c":"#94a3b8",weight:d.car==="yes"?4:2.5,opacity:.7}).addTo(layer);});
+  DAYS.forEach(d=>{const pts=d.stops.map(s=>pt(s.p));const c=d.car==="yes"||d.car==="pick";L.polyline(pts,{color:c?"#fb7185":"#e2e8f0",weight:c?4:2.5,opacity:.9}).addTo(layer);});
   map.flyToBounds([[21.25,-158.12],[21.70,-157.68]],{duration:.8});
   box.innerHTML=`<h2>总览</h2>
-  <div class="box"><h3>🚗 哪几天要车</h3><table><tr><th>日期</th><th>用车</th><th>说明</th></tr>${DAYS.map(d=>`<tr><td>${d.d} ${d.w}</td><td>${carBadge(d.car)}</td><td>${d.carNote}</td></tr>`).join("")}</table>
-  <p><b>建议：租 12/14 早上到 12/16 晚上，一共 3 天</b>，在 Waikiki 的门店取车、还车，比机场取车少付几天停车费。12/13 打 Uber 就行；想 12/13 也自己开，就从 12/13 早上开始租。</p>
-  <p class="sub">酒店停车按晚收费，两间房只办一个车位。价格以酒店为准。</p></div>
-  <div class="box"><h3>📅 每天一句话</h3><table>${DAYS.map((d,i)=>`<tr><td><a href="#${i}" onclick="show('${i}')">${d.d} ${d.w}</a></td><td>${d.type.includes("sea")?"🌊":"🏔"} ${d.title}</td></tr>`).join("")}</table></div>
-  <div class="box"><h3>🎟 要提前订的</h3>
-  现在就订：珍珠港（recreation.gov）、Kualoa 越野车（12/14 上午）、鲨鱼笼（12/15，选能免费改期的）、Turtle Canyon（12/17 上午）、PCC（想去的话）、租车、牡丹虾餐厅<br>
-  到时间再抢：钻石头山 约 11/13（12/13 早场）；恐龙湾 12/14 夏威夷时间 7:00（12/16）<br>
-  酒店：积分那间现在只订到 12/17，<b>12/17 那晚还要补订</b></div>
+  <div class="box"><h3>📅 每天安排</h3><table>${DAYS.map((d,i)=>`<tr><td style="white-space:nowrap"><a href="#${i}" onclick="show('${i}')">${d.d} ${d.w}</a></td><td>${d.type.includes("sea")?"🌊":"🏔"} ${d.title}</td><td>${carBadge(d.car)}</td></tr>`).join("")}</table></div>
+  <div class="box"><h3>🚗 租车</h3>
+  建议 <b>12/13 上午取车，12/16 中午还车</b>，在 Waikiki 的门店取还。12/14 早上 5:45 就要出发，门店一般还没开门，所以要提前一天取车。<br>
+  <span class="sub">想再省一些：12/13 上午取车、12/15 上午还车，12/16 去恐龙湾改为打车。恐龙湾离市区较远，回程叫车可能要等。酒店停车按晚收费，两间房只需要一个车位。</span></div>
+  <div class="box"><h3>🎟 预订时间表</h3><table><tr><th>开放</th><th>项目</th><th>建议订好</th></tr>${BOOK.map(b=>`<tr><td style="white-space:nowrap">${b[0]}</td><td>${b[1]}${b[2]?`<div class="sub">${b[2]}</div>`:""}</td><td style="white-space:nowrap">${b[3]}</td></tr>`).join("")}</table><div class="sub">开放时间以各官网为准。</div></div>
   <div class="box"><h3>🎒 装备</h3>
-  丈母娘在淘宝买、带过来：面镜加呼吸管、水鞋、防晒泳衣、速干毛巾（都是 3 份）<br>
-  湾区或当地买：reef-safe 防晒霜（矿物成分，zinc oxide）、沙滩帐篷（当地买）<br>
-  不用买：救生衣、脚蹼（团里提供，恐龙湾可以租）<br>
-  别忘了：晕船药、薄外套、头灯、GoPro、深色旧衣服（越野车穿）</div>
-  <div class="foot">时间是预估，以订票为准。</div>`;}
+  妈妈从国内带（淘宝）：面镜和呼吸管、水鞋、防晒泳衣、速干毛巾，各 3 份<br>
+  在湾区或当地买：reef-safe 防晒霜（矿物成分，zinc oxide）；沙滩帐篷到当地再买<br>
+  不用准备：救生衣、脚蹼（浮潜团会提供，恐龙湾可以租）<br>
+  另外带上：晕船药、薄外套、头灯、运动相机、一套深色旧衣服（越野车穿）</div>
+  <div class="foot">时间为预估，以各项预约为准。</div>`;}
 tabs();const h0=location.hash.slice(1);show(h0===""?"0":h0);
 </script>
 </body>
