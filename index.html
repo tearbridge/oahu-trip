@@ -34,6 +34,8 @@ h2{font-size:19px;margin:6px 0 2px}
 .st-b .k{color:var(--mut)}
 .bring{font-size:13px;background:#f1f5f9;border-radius:6px;padding:4px 8px;margin-top:4px}
 .warn{font-size:13px;background:#fff7ed;border-radius:6px;padding:4px 8px;margin-top:4px;color:#9a3412}
+.wear{font-size:13.5px;line-height:1.6;background:#eef6f8;border-radius:8px;padding:6px 9px;margin:8px 0}
+.go a{color:var(--sea)}
 .go{font-size:12.5px;color:var(--mut);margin:2px 0 -3px 14px;padding-left:10px;border-left:2px dashed #cbd5e1}
 .box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14px;line-height:1.65}
 .box h3{margin:0 0 4px;font-size:15px}
@@ -85,7 +87,7 @@ const P={
  mkp:["Makapu'u 观景台",21.3100,-157.6560]
 };
 const DAYS=[
-{d:"12/12",w:"周六",title:"抵达 · Waikiki 逛街",type:["land"],car:"no",carNote:"机场到酒店叫 Uber XL，三个人加行李，约 40 分钟。",
+{d:"12/12",wear:"✈️ 飞机上：长裤 + 薄外套（12/12 早上 SJC 只有 5–10°C，机舱里也冷）。落地后换短袖、短裤或连衣裙。今天逛街走路多，穿好走的运动鞋或软底凉鞋。",w:"周六",title:"抵达 · Waikiki 逛街",type:["land"],car:"no",carNote:"机场到酒店叫 Uber XL，三个人加行李，约 40 分钟。",
  stops:[
   {p:"hnl",t:"11:00",txt:"我们的航班 11:00 落地。妈妈的国际航班同一天上午到，出关大约需要 1 到 1.5 小时，在到达层会合。",bring:"妈妈：护照、美国签证、EVUS 登记记录、回程行程单。",warn:"妈妈的航班确定后，再核对会合时间。"},
   {go:"🚕 打车约 40 分钟",p:"hotel",t:"12:30",txt:"到酒店先寄存行李，15:00 起可以入住。积分房入住时，可以和前台确认免收 resort fee。"},
@@ -93,7 +95,7 @@ const DAYS=[
   {go:"🚕 打车约 6 分钟",p:"ala",t:"15:30",txt:"Ala Moana Center，夏威夷最大的商场，打车约 5 分钟。商场里的 Foodland Farms 超市有切好的木瓜和菠萝，可以买些当零食和第二天的早餐。"},
   {go:"🚶 步行约 15 分钟",p:"toto",t:"17:30",txt:"晚饭在 Totoya，主打海鲜丼，从 Ala Moana 走过去约 15 分钟。刚到的第一天傍晚容易犯困，晚饭安排早一些。",warn:"晚餐 17:00–20:30，每周二休息，可以订位。"},
   {go:"🚕 打车约 8 分钟",p:"hotel",t:"19:00",txt:"回酒店休息。"}]},
-{d:"12/13",w:"周日",title:"钻石头山日出 · 珍珠港",type:["land"],car:"pick",carNote:"钻石头山打车约 10 分钟。上午在 Waikiki 门店取车，下午自驾去珍珠港。",
+{d:"12/13",wear:"🌄 凌晨爬钻石头山：运动鞋、短袖加一件防风外套（山顶早上 20°C 左右，风大），运动短裤或长裤都行。下午珍珠港是纪念场所，不要穿泳衣、背心去；不能带包，衣服带口袋更方便。",w:"周日",title:"钻石头山日出 · 珍珠港",type:["land"],car:"pick",carNote:"钻石头山打车约 10 分钟。上午在 Waikiki 门店取车，下午自驾去珍珠港。",
  stops:[
   {p:"hotel",t:"05:40",txt:"出发去钻石头山。刚到的头两天容易早醒，正好去看日出。"},
   {go:"🚕 打车约 12 分钟",p:"dh",t:"06:00",txt:"按预约时段入园，登顶约 40 分钟，大部分是上坡和台阶。12 月的日出在 7:00 前后，8:30 左右下山。",bring:"预约二维码、手电或头灯、饮用水、运动鞋、薄外套（山顶早上风大）。",warn:"需要预约。12/13 的名额在 11/13 开放（提前 30 天）。"},
@@ -102,7 +104,7 @@ const DAYS=[
   {go:"🚗 开车约 25 分钟",p:"ph",t:"13:00",txt:"珍珠港亚利桑那号纪念馆，按票面时间提前 30 分钟到。整个参观约 2 到 3 小时。",bring:"手机、钱包、证件。",warn:"园区不允许带包入内（包括背包和相机包），门口有付费寄存。"},
   {go:"🚗 开车约 30 分钟",p:"dole",t:"16:15",txt:"从珍珠港开车约 30 分钟到 Dole 菠萝园，吃菠萝冰淇淋（Dole Whip）、买新鲜菠萝。不坐小火车的话，停留 40 分钟左右就够。",warn:"每天 9:30–17:30 开放，最晚 16:30 前到。"},
   {go:"🚗 开车约 45 分钟",p:"hotel",t:"18:00",txt:"回 Waikiki，约 45 分钟。第二天 05:45 出发，晚饭附近简单吃，可以顺路在 Iyasume 买几个饭团当第二天车上的早餐。"}]},
-{d:"12/14",w:"周一",title:"北岸鲨鱼笼 · Kualoa 牧场",type:["sea","land"],car:"yes",carNote:"全天自驾，绕岛北半圈：先走 H2 去北岸，再沿东岸回来，开车合计约 3 小时。",
+{d:"12/14",wear:"🦈 泳衣直接穿在里面，外面套速干短袖、短裤，穿拖鞋上船。车里放一套干衣服和薄外套。下午越野车：换上深色旧衣服和包脚的运动鞋（一般要求穿包脚鞋，会溅泥，以官网为准）。",w:"周一",title:"北岸鲨鱼笼 · Kualoa 牧场",type:["sea","land"],car:"yes",carNote:"全天自驾，绕岛北半圈：先走 H2 去北岸，再沿东岸回来，开车合计约 3 小时。",
  stops:[
   {p:"hotel",t:"05:45",txt:"出发去北岸，车程约 1 小时。"},
   {go:"🚗 开车约 60 分钟（H1 → H2）",p:"halh",t:"06:45",txt:"Haleiwa 港签到，出海约 2 小时。人在笼子里，浮在水面附近，不需要会潜水。",bring:"晕船药（出发前 1 小时服用）、泳衣穿在里面、毛巾、一套干衣服、reef-safe 防晒、运动相机。",warn:"12 月北岸浪大，出海可能临时取消。预订时选可以免费改期的商家，取消了就改到 12/17。"},
@@ -112,7 +114,7 @@ const DAYS=[
   {go:"🚗 开车约 36 分钟",p:"kua",t:"13:30",txt:"Kualoa 牧场 UTV 越野车，提前 30 分钟签到，行程约 2 小时，会经过《侏罗纪公园》等电影的拍摄地。",bring:"驾照（开车的人）、深色旧衣服（会溅泥）、墨镜、头绳、薄外套。",warn:"选 14:00 左右开始的场次，具体以官网为准。"},
   {go:"🚗 开车约 33 分钟",p:"pali",t:"16:45",txt:"回程经过 Pali 观景台，看东岸的山崖，停留 15 分钟左右。",bring:"外套（风很大）、停车费（可刷卡）。"},
   {go:"🚗 开车约 20 分钟",p:"hotel",t:"17:30",txt:"回到酒店。这一天起得早，晚饭在附近简单吃。"}]},
-{d:"12/15",w:"周二",title:"Turtle Canyon 看海龟 · Kailua 和 Lanikai 海滩",type:["sea","land"],car:"yes",carNote:"上午浮潜不用车（船在 Waikiki 附近集合）；下午开车去东岸，单程约 30 分钟，走 Pali 公路。",
+{d:"12/15",wear:"🐢 上午：泳衣 + 长袖防晒泳衣，拖鞋或水鞋。下午东岸海滩：短袖短裤、凉鞋，戴帽子和墨镜，带薄外套和折叠伞（东岸风大，常有阵雨）。",w:"周二",title:"Turtle Canyon 看海龟 · Kailua 和 Lanikai 海滩",type:["sea","land"],car:"yes",carNote:"上午浮潜不用车（船在 Waikiki 附近集合）；下午开车去东岸，单程约 30 分钟，走 Pali 公路。",
  stops:[
   {p:"kew",t:"08:00",txt:"Turtle Canyon 浮潜团。上午风浪较小、水更清。船程约 15 分钟，全程 2 到 3 小时。",bring:"晕船药、泳衣、毛巾、reef-safe 防晒。船上会提供面镜，自带的更贴合。",warn:"集合地点以订单为准。"},
   {go:"🚤 坐船约 15 分钟",p:"tc",t:"08:30",txt:"海龟常在这片礁石附近休息、觅食，浮在水面上就能看到。请不要触碰。"},
@@ -122,7 +124,7 @@ const DAYS=[
   {go:"🚶 步行约 20 分钟",p:"lnk",t:"14:00",txt:"从停车场步行约 20 分钟到 Lanikai 海滩，从住宅区里的公共小路下到沙滩。海水颜色很好看，海上能看到两座小岛（Mokulua）。在这里停留 1 小时左右。",warn:"Lanikai 在住宅区里，没有停车场，所以车停在 Kailua 海滩公园走过去。"},
   {go:"🚶 走回停车场 + 🚗 开车约 5 分钟",p:"ktown",t:"15:30",txt:"Kailua 小镇逛一逛，喝咖啡、吃刨冰，镇上有不少小店。"},
   {go:"🚗 开车约 30 分钟",p:"hotel",t:"17:00",txt:"走 Pali 公路回 Waikiki，约 30 分钟。晚上在 Kalakaua 大道散步。"}]},
-{d:"12/16",w:"周三",title:"恐龙湾浮潜 · 东岸观景",type:["sea"],car:"yes",carNote:"上午恐龙湾，出来顺路看 Halona 喷泉洞和 Makapu'u 观景台，13:00 左右还车。",
+{d:"12/16",wear:"🐠 恐龙湾：泳衣 + 防晒泳衣，下水穿水鞋（有礁石）。之后去观景台风很大，带外套。晚上吃烤串随意穿。",w:"周三",title:"恐龙湾浮潜 · 东岸观景",type:["sea"],car:"yes",carNote:"上午恐龙湾，出来顺路看 Halona 喷泉洞和 Makapu'u 观景台，13:00 左右还车。",
  stops:[
   {p:"hotel",t:"06:45",txt:"出发去恐龙湾。"},
   {go:"🚗 开车约 26 分钟",p:"han",t:"07:15",txt:"按预约时段入园，先看一段十几分钟的保育短片，再步行下坡到海滩（也有付费接驳车）。浮潜到 11 点左右。",bring:"预约确认和证件、门票（每人约 $25）、面镜和呼吸管、水鞋、reef-safe 防晒、毛巾、饮用水。",warn:"每周一、二闭园。12/16 的名额在 12/14 夏威夷时间 7:00 开放预约。停车位少，尽量早到。"},
@@ -131,12 +133,12 @@ const DAYS=[
   {go:"🚗 开车约 32 分钟",p:"hotel",t:"12:45",txt:"回 Waikiki 还车，约 30 分钟。"},
   {go:"🚕 打车约 6 分钟",p:"dq",t:"14:00",txt:"下午去唐吉诃德买零食和伴手礼。"},
   {go:"🚕 打车约 5 分钟",p:"skw",t:"18:00",txt:"晚饭在 Honolulu Skewer House，中式烤串，从酒店打车约 5 分钟。",warn:"每天 17:00–23:00。烤串偏辣，点单时说不要辣；可以多点鸡肉、海鲜和蔬菜串。"}]},
-{d:"12/17",w:"周四",title:"自由活动 · 牡丹虾晚餐",type:["land"],car:"no",carNote:"如果鲨鱼笼改到今天，需要再租一天车，或者选含 Waikiki 接送的团。",
+{d:"12/17",wear:"🍣 白天随意。晚上牡丹虾如果是 omakase，穿得体一些：男士 polo 或衬衫加长裤，女士连衣裙，不穿拖鞋和沙滩装。",w:"周四",title:"自由活动 · 牡丹虾晚餐",type:["land"],car:"no",carNote:"如果鲨鱼笼改到今天，需要再租一天车，或者选含 Waikiki 接送的团。",
  stops:[
   {p:"hotel",t:"09:00",txt:"备用日。12/14 的鲨鱼笼如果因为风浪取消，就改到今天。没有改期的话，今天自由安排：海滩、泳池，或者再逛一次商场。"},
   {go:"🚕 打车约 8 分钟",p:"ala",t:"14:00",txt:"想补买东西的话，可以再去一趟 Ala Moana。"},
   {go:"🚕 打车，看餐厅位置",p:"kap",t:"18:30",txt:"晚饭吃牡丹虾（botan ebi），寿司店或 omakase。",warn:"餐厅待定。订位时确认当天有没有牡丹虾。"}]},
-{d:"12/18",w:"周五",title:"返程",type:["land"],car:"no",carNote:"叫 Uber XL 去机场，约 40 分钟。",
+{d:"12/18",wear:"✈️ 回程：长裤 + 外套，晚上 SJC 只有 5–10°C。妈妈回广州也带一件外套，转机地首尔、东京 12 月是冬天。",w:"周五",title:"返程",type:["land"],car:"no",carNote:"叫 Uber XL 去机场，约 40 分钟。",
  stops:[
   {p:"hotel",t:"08:00",txt:"早饭后买些伴手礼，11:00 前退房，行李寄存在前台。退房时核对一下积分房的账单。"},
   {go:"🚕 打车约 40 分钟",p:"hnl",t:"11:30",txt:"出发去机场。我们的航班 13:43 起飞，20:50 到 SJC。妈妈的回国航班建议选中午到下午起飞的，可以一起去机场。",bring:"妈妈的护照；液体放托运；提前在 App 上值机。"}]}
@@ -164,6 +166,7 @@ L.control.zoom({position:"topright"}).addTo(map);
 L.marker(HOTEL,{icon:L.divIcon({className:"",html:'<div class="pin hotel">🏨</div>',iconSize:[26,26],iconAnchor:[13,13]}),zIndexOffset:900}).bindPopup("<b>酒店（Waikiki）</b>").addTo(map);
 const layer=L.layerGroup().addTo(map);let mk=[];
 const pt=k=>k==="hotel"?HOTEL:[P[k][1],P[k][2]];
+const gmap=(a,b)=>{const A=pt(a),B=pt(b);return `https://www.google.com/maps/dir/?api=1&origin=${A[0]},${A[1]}&destination=${B[0]},${B[1]}&travelmode=driving`;};
 const nm=k=>k==="hotel"?"酒店":P[k][0];
 function tabs(){const el=document.getElementById("tabs");
   el.innerHTML=DAYS.map((d,i)=>`<button class="tab" data-i="${i}">${d.d} ${d.w}${d.car==="yes"||d.car==="pick"?'<span class="c">🚗</span>':""}</button>`).join("")+`<button class="tab" data-i="all">总览</button>`;
@@ -180,8 +183,9 @@ function show(i){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle
     const m=L.marker(pt(s.p),{icon:L.divIcon({className:"",html:`<div class="pin" style="background:${color}">${j+1}</div>`,iconSize:[24,24],iconAnchor:[12,12]})}).bindPopup(`<b>${s.t} ${nm(s.p)}</b><br>${s.txt}`).addTo(layer);mk.push(m);});
   map.flyToBounds(L.latLngBounds(pts.concat([HOTEL])).pad(.25),{duration:.8,maxZoom:14});
   let h=`<h2>${d.d} ${d.w} · ${d.title}</h2><div class="badges">${d.type.map(t=>`<span class="b ${t}">${t==="sea"?"🌊 下水":"🏔 陆地"}</span>`).join("")}${carBadge(d.car)}</div><div class="sub">${d.carNote}</div>${(()=>{const m=d.stops.reduce((t,x)=>{const r=(x.go||"").match(/开车约 (\d+)/);return t+(r?+r[1]:0);},0);return m?`<div class="sub">🚗 当天开车合计约 ${m>=60?Math.floor(m/60)+" 小时 "+(m%60?m%60+" 分钟":""):m+" 分钟"}</div>`:"";})()}`;
-  h+=d.stops.map((s,j)=>`${s.go?`<div class="go">${s.go}</div>`:""}<div class="stop" data-j="${j}"><div class="st-h"><span class="num" style="background:${s.p==="hotel"?"#111":color}">${s.p==="hotel"?"🏨":j+1}</span><span class="t">${s.t}</span><span class="n">${nm(s.p)}</span></div><div class="st-b">${s.txt}</div>${s.bring?`<div class="bring">🎒 ${s.bring}</div>`:""}${s.warn?`<div class="warn">⚠️ ${s.warn}</div>`:""}</div>`).join("");
-  h+=`<div class="foot">时间为预估，以各项预约为准。地图上的虚线表示先后顺序，不是实际行车路线。车程按路线距离估算，没有算堵车；早上 7–9 点、下午 3–6 点 H1 高速经常堵，留出 10–20 分钟。</div>`;
+  if(d.wear)h+=`<div class="wear">👕 ${d.wear}</div>`;
+  h+=d.stops.map((s,j)=>`${s.go?`<div class="go">${s.go}${j>0&&/开车|打车/.test(s.go)?` · <a href="${gmap(d.stops[j-1].p,s.p)}" target="_blank" rel="noopener noreferrer">谷歌地图</a>`:""}</div>`:""}<div class="stop" data-j="${j}"><div class="st-h"><span class="num" style="background:${s.p==="hotel"?"#111":color}">${s.p==="hotel"?"🏨":j+1}</span><span class="t">${s.t}</span><span class="n">${nm(s.p)}</span></div><div class="st-b">${s.txt}</div>${s.bring?`<div class="bring">🎒 ${s.bring}</div>`:""}${s.warn?`<div class="warn">⚠️ ${s.warn}</div>`:""}</div>`).join("");
+  h+=`<div class="foot">时间为预估，以各项预约为准。地图上的虚线表示先后顺序，不是实际行车路线。车程按路线距离估算，没有算堵车；早上 7–9 点、下午 3–6 点 H1 高速经常堵，留出 10–20 分钟。点"谷歌地图"可以看当时的实时路况。</div>`;
   box.innerHTML=h;
   box.querySelectorAll(".stop").forEach(el=>el.onclick=()=>{const j=+el.dataset.j;box.querySelectorAll(".stop").forEach(x=>x.classList.toggle("on",x===el));const m=mk[j];
     if(m){map.flyTo(m.getLatLng(),13,{duration:.6});m.openPopup();}else map.flyTo(HOTEL,14,{duration:.6});});}
@@ -204,6 +208,24 @@ function overview(box){
   <tr><td>牡丹虾（餐厅待定）</td><td>12/17 晚</td><td class="sub"></td></tr>
   <tr><td>木瓜、菠萝</td><td>随时</td><td class="sub">Foodland Farms（Ala Moana）、ABC Store 有切好的；菠萝也可以在 Dole 买</td></tr>
   </table><div class="sub">营业时间以各店官网为准。</div></div>
+  <div class="box"><h3>🌡 天气</h3>
+  12 月中旬的檀香山：白天 26–27°C，早晚 19–21°C，海水约 25°C。这是雨季，经常有一阵一阵的小雨，一般十几分钟就停；东岸和北岸比 Waikiki 更容易下雨、风更大。<br>
+  <span class="sub">出发和回程的湾区是 5–15°C，妈妈出发的广州 12 月大约 10–20°C。出发前一周再看一次天气预报。</span></div>
+  <div class="box"><h3>👕 衣物和鞋（每人）</h3><table>
+  <tr><td>短袖 T 恤 / 上衣</td><td>5–6 件</td><td class="sub">速干的更好，下水后容易干</td></tr>
+  <tr><td>短裤 / 裙子</td><td>2–3 条</td><td></td></tr>
+  <tr><td>长裤</td><td>1–2 条</td><td class="sub">飞机上、早上爬山、晚餐</td></tr>
+  <tr><td>防风薄外套（最好带帽子）</td><td>1 件</td><td class="sub">日出、观景台、东岸、飞机上都要用</td></tr>
+  <tr><td>泳衣</td><td>2 套</td><td class="sub">轮换着穿，一套没干还有一套</td></tr>
+  <tr><td>长袖防晒泳衣</td><td>1 件</td><td class="sub">妈妈从淘宝买</td></tr>
+  <tr><td>深色旧衣服</td><td>1 套</td><td class="sub">越野车穿，会溅泥</td></tr>
+  <tr><td>稍正式的一套</td><td>1 套</td><td class="sub">12/17 晚餐：衬衫或连衣裙</td></tr>
+  <tr><td>睡衣、内衣、袜子</td><td>7 天</td><td></td></tr>
+  <tr><td>运动鞋</td><td>1 双</td><td class="sub">钻石头山、越野车，要包脚</td></tr>
+  <tr><td>凉鞋或拖鞋</td><td>1 双</td><td class="sub">海滩、上船、日常</td></tr>
+  <tr><td>水鞋</td><td>1 双</td><td class="sub">恐龙湾、浮潜</td></tr>
+  <tr><td>帽子、墨镜、折叠伞或轻便雨衣</td><td></td><td class="sub">伞也可以到当地 ABC Store 买</td></tr>
+  </table><div class="sub">不用带厚衣服，羽绒服、毛衣都用不上。可以问酒店有没有自助洗衣，中途洗一次就能少带几件。</div></div>
   <div class="box"><h3>🎒 装备</h3>
   妈妈从国内带（淘宝）：面镜和呼吸管、水鞋、防晒泳衣、速干毛巾，各 3 份<br>
   在湾区或当地买：reef-safe 防晒霜（矿物成分，zinc oxide）；沙滩帐篷到当地再买<br>
