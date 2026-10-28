@@ -72,7 +72,12 @@ const P={
  tc:["Turtle Canyon",21.2700,-157.8400],
  rh:["Royal Hawaiian Center · International Market Place",21.2795,-157.8290],
  dq:["唐吉诃德 Don Quijote",21.2906,-157.8340],
- kap:["牡丹虾晚餐（餐厅待定）",21.2790,-157.8130]
+ kap:["牡丹虾晚餐（餐厅待定）",21.2790,-157.8130],
+ toto:["Totoya（Piikoi St）",21.2965,-157.8445],
+ iya:["Musubi Cafe Iyasume（Beachwalk 店）",21.2797,-157.8320],
+ ivw:["Island Vintage Wine Bar",21.2788,-157.8283],
+ skw:["Honolulu Skewer House（Kapahulu）",21.2830,-157.8145],
+ dole:["Dole 菠萝园",21.5257,-158.0378]
 };
 const DAYS=[
 {d:"12/12",w:"周六",title:"抵达 · Waikiki 逛街",type:["land"],car:"no",carNote:"机场到酒店叫 Uber XL，三个人加行李，约 25 分钟。",
@@ -80,15 +85,18 @@ const DAYS=[
   {p:"hnl",t:"11:00",txt:"我们的航班 11:00 落地。妈妈的国际航班同一天上午到，出关大约需要 1 到 1.5 小时，在到达层会合。",bring:"妈妈：护照、美国签证、EVUS 登记记录、回程行程单。",warn:"妈妈的航班确定后，再核对会合时间。"},
   {p:"hotel",t:"12:30",txt:"到酒店先寄存行李，15:00 起可以入住。积分房入住时，可以和前台确认免收 resort fee。"},
   {p:"lux",t:"13:30",txt:"Kalakaua 大道上的品牌店和 T Galleria 免税店，从酒店步行几分钟就到。",bring:"护照（免税店可能需要出示）、好走的鞋。"},
-  {p:"ala",t:"16:00",txt:"Ala Moana Center，夏威夷最大的商场，打车约 5 分钟。"},
-  {p:"hotel",t:"18:30",txt:"晚饭安排早一些。刚到的第一天，傍晚通常最容易犯困。"}]},
+  {p:"ala",t:"15:30",txt:"Ala Moana Center，夏威夷最大的商场，打车约 5 分钟。商场里的 Foodland Farms 超市有切好的木瓜和菠萝，可以买些当零食和第二天的早餐。"},
+  {p:"toto",t:"17:30",txt:"晚饭在 Totoya，主打海鲜丼，离 Ala Moana 走路几分钟。刚到的第一天傍晚容易犯困，晚饭安排早一些。",warn:"晚餐 17:00–20:30，每周二休息，可以订位。"},
+  {p:"hotel",t:"19:00",txt:"回酒店休息。"}]},
 {d:"12/13",w:"周日",title:"钻石头山日出 · 珍珠港",type:["land"],car:"pick",carNote:"钻石头山打车约 10 分钟。上午在 Waikiki 门店取车，下午自驾去珍珠港。",
  stops:[
   {p:"hotel",t:"05:40",txt:"出发去钻石头山。刚到的头两天容易早醒，正好去看日出。"},
   {p:"dh",t:"06:00",txt:"按预约时段入园，登顶约 40 分钟，大部分是上坡和台阶。12 月的日出在 7:00 前后，8:30 左右下山。",bring:"预约二维码、手电或头灯、饮用水、运动鞋、薄外套（山顶早上风大）。",warn:"需要预约。12/13 的名额在 11/13 开放（提前 30 天）。"},
-  {p:"hotel",t:"09:00",txt:"回酒店吃早饭、休息，上午去门店取车。"},
+  {p:"iya",t:"08:45",txt:"下山后在 Musubi Cafe Iyasume 吃早饭（日式饭团），07:00 开门。"},
+  {p:"hotel",t:"09:30",txt:"回酒店休息，上午去门店取车。"},
   {p:"ph",t:"13:00",txt:"珍珠港亚利桑那号纪念馆，按票面时间提前 30 分钟到。整个参观约 2 到 3 小时。",bring:"手机、钱包、证件。",warn:"园区不允许带包入内（包括背包和相机包），门口有付费寄存。"},
-  {p:"hotel",t:"17:00",txt:"回 Waikiki。第二天出发很早，晚饭后早些休息。"}]},
+  {p:"dole",t:"16:15",txt:"从珍珠港开车约 25 分钟到 Dole 菠萝园，吃菠萝冰淇淋（Dole Whip）、买新鲜菠萝。不坐小火车的话，停留 40 分钟左右就够。",warn:"每天 9:30–17:30 开放，最晚 16:30 前到。"},
+  {p:"hotel",t:"17:45",txt:"回 Waikiki。第二天 05:45 出发，晚饭附近简单吃，可以顺路在 Iyasume 买几个饭团当第二天车上的早餐。"}]},
 {d:"12/14",w:"周一",title:"北岸鲨鱼笼 · Kualoa 牧场",type:["sea","land"],car:"yes",carNote:"全天自驾，绕岛北半圈：先走 H2 去北岸，再沿东岸回来，开车合计约 2.5 小时。",
  stops:[
   {p:"hotel",t:"05:45",txt:"出发去北岸，车程约 1 小时。"},
@@ -103,14 +111,16 @@ const DAYS=[
  stops:[
   {p:"kew",t:"08:00",txt:"Turtle Canyon 浮潜团。上午风浪较小、水更清。船程约 15 分钟，全程 2 到 3 小时。",bring:"晕船药、泳衣、毛巾、reef-safe 防晒。船上会提供面镜，自带的更贴合。",warn:"集合地点以订单为准。"},
   {p:"tc",t:"08:30",txt:"海龟常在这片礁石附近休息、觅食，浮在水面上就能看到。请不要触碰。"},
-  {p:"rh",t:"14:00",txt:"下午回酒店休息，或者去 Royal Hawaiian Center 和 International Market Place，都在步行范围内。"},
+  {p:"ivw",t:"11:30",txt:"上岸后在 Island Vintage Wine Bar 吃午饭，在 Royal Hawaiian Center C 栋 2 楼，从酒店走路就到。",warn:"每天 07:00–22:00，可以订位。"},
+  {p:"rh",t:"14:00",txt:"下午回酒店休息，或者逛 Royal Hawaiian Center 和 International Market Place，都在步行范围内。"},
   {p:"hotel",t:"18:00",txt:"晚上在 Kalakaua 大道散步。"}]},
 {d:"12/16",w:"周三",title:"恐龙湾浮潜",type:["sea"],car:"yes",carNote:"开车约 25 分钟，回来后中午还车。",
  stops:[
   {p:"hotel",t:"06:45",txt:"出发去恐龙湾。"},
   {p:"han",t:"07:15",txt:"按预约时段入园，先看一段十几分钟的保育短片，再步行下坡到海滩（也有付费接驳车）。浮潜到 11 点左右。",bring:"预约确认和证件、门票（每人约 $25）、面镜和呼吸管、水鞋、reef-safe 防晒、毛巾、饮用水。",warn:"每周一、二闭园。12/16 的名额在 12/14 夏威夷时间 7:00 开放预约。停车位少，尽量早到。"},
   {p:"hotel",t:"12:00",txt:"回 Waikiki 还车。"},
-  {p:"dq",t:"14:00",txt:"下午去唐吉诃德买零食和伴手礼。"}]},
+  {p:"dq",t:"14:00",txt:"下午去唐吉诃德买零食和伴手礼。"},
+  {p:"skw",t:"18:00",txt:"晚饭在 Honolulu Skewer House，中式烤串，从酒店打车约 5 分钟。",warn:"每天 17:00–23:00。烤串偏辣，点单时说不要辣；可以多点鸡肉、海鲜和蔬菜串。"}]},
 {d:"12/17",w:"周四",title:"自由活动 · 牡丹虾晚餐",type:["land"],car:"no",carNote:"如果鲨鱼笼改到今天，需要再租一天车，或者选含 Waikiki 接送的团。",
  stops:[
   {p:"hotel",t:"09:00",txt:"备用日。12/14 的鲨鱼笼如果因为风浪取消，就改到今天。没有改期的话，今天自由安排：海滩、泳池，或者再逛一次商场。"},
@@ -174,6 +184,16 @@ function overview(box){
   建议 <b>12/13 上午取车，12/16 中午还车</b>，在 Waikiki 的门店取还。12/14 早上 5:45 就要出发，门店一般还没开门，所以要提前一天取车。<br>
   <span class="sub">想再省一些：12/13 上午取车、12/15 上午还车，12/16 去恐龙湾改为打车。恐龙湾离市区较远，回程叫车可能要等。酒店停车按晚收费，两间房只需要一个车位。</span></div>
   <div class="box"><h3>🎟 预订时间表</h3><table><tr><th>开放</th><th>项目</th><th>建议订好</th></tr>${BOOK.map(b=>`<tr><td style="white-space:nowrap">${b[0]}</td><td>${b[1]}${b[2]?`<div class="sub">${b[2]}</div>`:""}</td><td style="white-space:nowrap">${b[3]}</td></tr>`).join("")}</table><div class="sub">开放时间以各官网为准。</div></div>
+  <div class="box"><h3>🍽 想吃的</h3><table>
+  <tr><td>Totoya（海鲜丼）</td><td>12/12 晚</td><td class="sub">晚餐 17:00–20:30，周二休息</td></tr>
+  <tr><td>Musubi Cafe Iyasume（饭团）</td><td>12/13 早</td><td class="sub">Beachwalk 店 07:00–21:00</td></tr>
+  <tr><td>Dole 菠萝园</td><td>12/13 下午</td><td class="sub">9:30–17:30</td></tr>
+  <tr><td>Giovanni's 虾车</td><td>12/14 午</td><td class="sub"></td></tr>
+  <tr><td>Island Vintage Wine Bar</td><td>12/15 午</td><td class="sub">07:00–22:00，可订位</td></tr>
+  <tr><td>Honolulu Skewer House（烤串）</td><td>12/16 晚</td><td class="sub">17:00–23:00，点不辣</td></tr>
+  <tr><td>牡丹虾（餐厅待定）</td><td>12/17 晚</td><td class="sub"></td></tr>
+  <tr><td>木瓜、菠萝</td><td>随时</td><td class="sub">Foodland Farms（Ala Moana）、ABC Store 有切好的；菠萝也可以在 Dole 买</td></tr>
+  </table><div class="sub">营业时间以各店官网为准。</div></div>
   <div class="box"><h3>🎒 装备</h3>
   妈妈从国内带（淘宝）：面镜和呼吸管、水鞋、防晒泳衣、速干毛巾，各 3 份<br>
   在湾区或当地买：reef-safe 防晒霜（矿物成分，zinc oxide）；沙滩帐篷到当地再买<br>
