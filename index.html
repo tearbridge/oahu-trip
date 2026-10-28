@@ -77,7 +77,12 @@ const P={
  iya:["Musubi Cafe Iyasume（Beachwalk 店）",21.2797,-157.8320],
  ivw:["Island Vintage Wine Bar",21.2788,-157.8283],
  skw:["Honolulu Skewer House（Kapahulu）",21.2830,-157.8145],
- dole:["Dole 菠萝园",21.5257,-158.0378]
+ dole:["Dole 菠萝园",21.5257,-158.0378],
+ kbp:["Kailua 海滩公园",21.3973,-157.7270],
+ lnk:["Lanikai 海滩",21.3925,-157.7155],
+ ktown:["Kailua 小镇",21.3950,-157.7400],
+ halo:["Halona 喷泉洞",21.2833,-157.6770],
+ mkp:["Makapu'u 观景台",21.3100,-157.6560]
 };
 const DAYS=[
 {d:"12/12",w:"周六",title:"抵达 · Waikiki 逛街",type:["land"],car:"no",carNote:"机场到酒店叫 Uber XL，三个人加行李，约 25 分钟。",
@@ -107,18 +112,23 @@ const DAYS=[
   {p:"kua",t:"13:30",txt:"Kualoa 牧场 UTV 越野车，提前 30 分钟签到，行程约 2 小时，会经过《侏罗纪公园》等电影的拍摄地。",bring:"驾照（开车的人）、深色旧衣服（会溅泥）、墨镜、头绳、薄外套。",warn:"选 14:00 左右开始的场次，具体以官网为准。"},
   {p:"pali",t:"16:45",txt:"回程经过 Pali 观景台，看东岸的山崖，停留 15 分钟左右。",bring:"外套（风很大）、停车费（可刷卡）。"},
   {p:"hotel",t:"17:30",txt:"回到酒店。这一天起得早，晚饭在附近简单吃。"}]},
-{d:"12/15",w:"周二",title:"Turtle Canyon 看海龟",type:["sea"],car:"no",carNote:"浮潜船在 Waikiki 附近集合，不少商家提供酒店接送。车停在酒店。",
+{d:"12/15",w:"周二",title:"Turtle Canyon 看海龟 · Kailua 和 Lanikai 海滩",type:["sea","land"],car:"yes",carNote:"上午浮潜不用车（船在 Waikiki 附近集合）；下午开车去东岸，单程约 30 分钟，走 Pali 公路。",
  stops:[
   {p:"kew",t:"08:00",txt:"Turtle Canyon 浮潜团。上午风浪较小、水更清。船程约 15 分钟，全程 2 到 3 小时。",bring:"晕船药、泳衣、毛巾、reef-safe 防晒。船上会提供面镜，自带的更贴合。",warn:"集合地点以订单为准。"},
   {p:"tc",t:"08:30",txt:"海龟常在这片礁石附近休息、觅食，浮在水面上就能看到。请不要触碰。"},
   {p:"ivw",t:"11:30",txt:"上岸后在 Island Vintage Wine Bar 吃午饭，在 Royal Hawaiian Center C 栋 2 楼，从酒店走路就到。",warn:"每天 07:00–22:00，可以订位。"},
-  {p:"rh",t:"14:00",txt:"下午回酒店休息，或者逛 Royal Hawaiian Center 和 International Market Place，都在步行范围内。"},
-  {p:"hotel",t:"18:00",txt:"晚上在 Kalakaua 大道散步。"}]},
-{d:"12/16",w:"周三",title:"恐龙湾浮潜",type:["sea"],car:"yes",carNote:"开车约 25 分钟，回来后中午还车。",
+  {p:"hotel",t:"12:45",txt:"回酒店换衣服，开车出发去东岸。"},
+  {p:"kbp",t:"13:20",txt:"车停在 Kailua 海滩公园。这里沙滩宽、沙子细，可以先在这边走一走。",bring:"沙滩巾、防晒、帽子、墨镜、饮用水。",warn:"冬天东岸风大，下水要看浪况；下午偶尔会有阵雨，带一件薄外套。"},
+  {p:"lnk",t:"14:00",txt:"从停车场步行 15 到 20 分钟到 Lanikai 海滩，从住宅区里的公共小路下到沙滩。海水颜色很好看，海上能看到两座小岛（Mokulua）。在这里停留 1 小时左右。",warn:"Lanikai 在住宅区里，没有停车场，所以车停在 Kailua 海滩公园走过去。"},
+  {p:"ktown",t:"15:30",txt:"Kailua 小镇逛一逛，喝咖啡、吃刨冰，镇上有不少小店。"},
+  {p:"hotel",t:"17:00",txt:"走 Pali 公路回 Waikiki，约 30 分钟。晚上在 Kalakaua 大道散步。"}]},
+{d:"12/16",w:"周三",title:"恐龙湾浮潜 · 东岸观景",type:["sea"],car:"yes",carNote:"上午恐龙湾，出来顺路看 Halona 喷泉洞和 Makapu'u 观景台，13:00 左右还车。",
  stops:[
   {p:"hotel",t:"06:45",txt:"出发去恐龙湾。"},
   {p:"han",t:"07:15",txt:"按预约时段入园，先看一段十几分钟的保育短片，再步行下坡到海滩（也有付费接驳车）。浮潜到 11 点左右。",bring:"预约确认和证件、门票（每人约 $25）、面镜和呼吸管、水鞋、reef-safe 防晒、毛巾、饮用水。",warn:"每周一、二闭园。12/16 的名额在 12/14 夏威夷时间 7:00 开放预约。停车位少，尽量早到。"},
-  {p:"hotel",t:"12:00",txt:"回 Waikiki 还车。"},
+  {p:"halo",t:"11:15",txt:"出了恐龙湾往东开 5 分钟，到 Halona 喷泉洞。海浪从礁石缝里喷上来，旁边能看到一片小沙滩。路边停车，下车走几步就到，停 15 分钟。",warn:"停车位很少，满了就绕一圈再来。不要翻越栏杆。"},
+  {p:"mkp",t:"11:40",txt:"再往前 5 分钟到 Makapu'u 观景台，从高处看东岸的海岸线和海上的小岛，停 20 分钟。",bring:"帽子、外套（风大）。"},
+  {p:"hotel",t:"12:45",txt:"回 Waikiki 还车，约 30 分钟。"},
   {p:"dq",t:"14:00",txt:"下午去唐吉诃德买零食和伴手礼。"},
   {p:"skw",t:"18:00",txt:"晚饭在 Honolulu Skewer House，中式烤串，从酒店打车约 5 分钟。",warn:"每天 17:00–23:00。烤串偏辣，点单时说不要辣；可以多点鸡肉、海鲜和蔬菜串。"}]},
 {d:"12/17",w:"周四",title:"自由活动 · 牡丹虾晚餐",type:["land"],car:"no",carNote:"如果鲨鱼笼改到今天，需要再租一天车，或者选含 Waikiki 接送的团。",
@@ -181,8 +191,8 @@ function overview(box){
   box.innerHTML=`<h2>总览</h2>
   <div class="box"><h3>📅 每天安排</h3><table>${DAYS.map((d,i)=>`<tr><td style="white-space:nowrap"><a href="#${i}" onclick="show('${i}')">${d.d} ${d.w}</a></td><td>${d.type.includes("sea")?"🌊":"🏔"} ${d.title}</td><td>${carBadge(d.car)}</td></tr>`).join("")}</table></div>
   <div class="box"><h3>🚗 租车</h3>
-  建议 <b>12/13 上午取车，12/16 中午还车</b>，在 Waikiki 的门店取还。12/14 早上 5:45 就要出发，门店一般还没开门，所以要提前一天取车。<br>
-  <span class="sub">想再省一些：12/13 上午取车、12/15 上午还车，12/16 去恐龙湾改为打车。恐龙湾离市区较远，回程叫车可能要等。酒店停车按晚收费，两间房只需要一个车位。</span></div>
+  建议 <b>12/13 上午取车，12/16 下午 1 点左右还车</b>，在 Waikiki 的门店取还，中间四天每天都会用到。12/14 早上 5:45 就要出发，门店一般还没开门，所以要提前一天取车。<br>
+  <span class="sub">酒店停车按晚收费，两间房只需要一个车位。</span></div>
   <div class="box"><h3>🎟 预订时间表</h3><table><tr><th>开放</th><th>项目</th><th>建议订好</th></tr>${BOOK.map(b=>`<tr><td style="white-space:nowrap">${b[0]}</td><td>${b[1]}${b[2]?`<div class="sub">${b[2]}</div>`:""}</td><td style="white-space:nowrap">${b[3]}</td></tr>`).join("")}</table><div class="sub">开放时间以各官网为准。</div></div>
   <div class="box"><h3>🍽 想吃的</h3><table>
   <tr><td>Totoya（海鲜丼）</td><td>12/12 晚</td><td class="sub">晚餐 17:00–20:30，周二休息</td></tr>
