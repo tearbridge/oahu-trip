@@ -102,7 +102,7 @@ const DAYS=[
   {go:"🚕 打车约 14 分钟",p:"iya",t:"08:45",txt:"下山后在 Musubi Cafe Iyasume 吃早饭（日式饭团），07:00 开门。"},
   {go:"🚶 步行约 15 分钟",p:"hotel",t:"09:30",txt:"回酒店休息，上午去门店取车。"},
   {go:"🚗 开车约 25 分钟",p:"ph",t:"13:30",txt:"珍珠港亚利桑那号纪念馆，订 14:00 的场次，提前 30 分钟到。中午在附近或酒店吃完午饭再出发。参观约 2 到 2.5 小时。",bring:"手机、钱包、证件。",warn:"园区不允许带包入内（包括背包和相机包），门口有付费寄存。"},
-  {go:"🚗 开车约 25 分钟",p:"hotel",t:"17:00",txt:"回 Waikiki，约 25 分钟（傍晚 H1 可能堵，多留 15 分钟）。第二天 05:45 出发，晚饭附近简单吃，可以顺路在 Iyasume 买几个饭团当第二天车上的早餐。"}]},
+  {go:"🚗 开车约 25 分钟",p:"hotel",t:"17:00",txt:"回 Waikiki，约 25 分钟（傍晚 H1 可能堵，多留 15 分钟）。第二天 05:30 出发，晚饭附近简单吃，可以顺路在 Iyasume 买几个饭团当第二天车上的早餐。"}]},
 {d:"12/14",wear:"🦈 泳衣直接穿在里面，外面套速干短袖、短裤，穿拖鞋上船。车里放一套干衣服和薄外套。下午越野车：换上深色旧衣服和包脚的运动鞋（一般要求穿包脚鞋，会溅泥，以官网为准）。",w:"周一",title:"北岸鲨鱼笼 · Kualoa 牧场",type:["sea","land"],car:"yes",carNote:"全天自驾，绕岛北半圈：先走 H2 去北岸，再沿东岸回来，开车合计约 3 小时。",
  stops:[
   {p:"hotel",t:"05:30",txt:"出发去北岸，车程约 1 小时。"},
@@ -194,7 +194,7 @@ function overview(box){
   box.innerHTML=`<h2>总览</h2>
   <div class="box"><h3>📅 每天安排</h3><table>${DAYS.map((d,i)=>`<tr><td style="white-space:nowrap"><a href="#${i}" onclick="show('${i}')">${d.d} ${d.w}</a></td><td>${d.type.includes("sea")?"🌊":"🏔"} ${d.title}</td><td>${carBadge(d.car)}</td></tr>`).join("")}</table></div>
   <div class="box"><h3>🚗 租车</h3>
-  建议 <b>12/13 上午取车，12/16 下午 1 点左右还车</b>，在 Waikiki 的门店取还，中间四天每天都会用到。12/14 早上 5:45 就要出发，门店一般还没开门，所以要提前一天取车。<br>
+  建议 <b>12/13 上午取车，12/16 下午 1 点左右还车</b>，在 Waikiki 的门店取还，中间四天每天都会用到。12/14 早上 5:30 就要出发，门店一般还没开门，所以要提前一天取车。<br>
   <span class="sub">酒店停车按晚收费，两间房只需要一个车位。</span></div>
   <div class="box"><h3>🎟 预订时间表</h3><table><tr><th>开放</th><th>项目</th><th>建议订好</th></tr>${BOOK.map(b=>`<tr><td style="white-space:nowrap">${b[0]}</td><td>${b[1]}${b[2]?`<div class="sub">${b[2]}</div>`:""}</td><td style="white-space:nowrap">${b[3]}</td></tr>`).join("")}</table><div class="sub">开放时间以各官网为准。</div></div>
   <div class="box"><h3>🍽 想吃的</h3><table>
