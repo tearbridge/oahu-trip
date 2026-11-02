@@ -55,6 +55,7 @@ td,th{border-bottom:1px solid var(--line);padding:5px 4px;text-align:left;vertic
   <div class="wrap" id="day"></div>
 </div>
 <script src="vendor/leaflet.js"></script>
+<script src="data_routes.js"></script>
 <script>
 const HOTEL=[21.2766,-157.8250];
 const P={
@@ -177,20 +178,21 @@ function show(i){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle
   if(i==="all"){overview(box);return;}
   const d=DAYS[+i];const color=COL[d.type[0]];
   const pts=d.stops.map(s=>pt(s.p));
-  L.polyline(pts,{color:"#fff",weight:7,opacity:.6}).addTo(layer);
-  L.polyline(pts,{color,weight:4,opacity:.95,dashArray:"8 7"}).addTo(layer);
+  for(let j=1;j<pts.length;j++){const r=(typeof ROAD!=="undefined")&&ROAD[i+"-"+j];
+    if(r){L.polyline(r,{color:"#fff",weight:7,opacity:.7}).addTo(layer);L.polyline(r,{color,weight:4,opacity:.95}).addTo(layer);}
+    else if(pts[j-1][0]!==pts[j][0]||pts[j-1][1]!==pts[j][1]){L.polyline([pts[j-1],pts[j]],{color:"#fff",weight:6,opacity:.6}).addTo(layer);L.polyline([pts[j-1],pts[j]],{color,weight:3,opacity:.9,dashArray:"6 7"}).addTo(layer);}}
   d.stops.forEach((s,j)=>{if(s.p==="hotel"){mk.push(null);return;}
     const m=L.marker(pt(s.p),{icon:L.divIcon({className:"",html:`<div class="pin" style="background:${color}">${j+1}</div>`,iconSize:[24,24],iconAnchor:[12,12]})}).bindPopup(`<b>${s.t} ${nm(s.p)}</b><br>${s.txt}`).addTo(layer);mk.push(m);});
   map.flyToBounds(L.latLngBounds(pts.concat([HOTEL])).pad(.25),{duration:.8,maxZoom:14});
   let h=`<h2>${d.d} ${d.w} · ${d.title}</h2><div class="badges">${d.type.map(t=>`<span class="b ${t}">${t==="sea"?"🌊 下水":"🏔 陆地"}</span>`).join("")}${carBadge(d.car)}</div><div class="sub">${d.carNote}</div>${(()=>{const m=d.stops.reduce((t,x)=>{const r=(x.go||"").match(/开车约 (\d+)/);return t+(r?+r[1]:0);},0);return m?`<div class="sub">🚗 当天开车合计约 ${m>=60?Math.floor(m/60)+" 小时 "+(m%60?m%60+" 分钟":""):m+" 分钟"}</div>`:"";})()}`;
   if(d.wear)h+=`<div class="wear">👕 ${d.wear}</div>`;
   h+=d.stops.map((s,j)=>`${s.go?`<div class="go">${s.go}${j>0&&/开车|打车/.test(s.go)?` · <a href="${gmap(d.stops[j-1].p,s.p)}" target="_blank" rel="noopener noreferrer">谷歌地图</a>`:""}</div>`:""}<div class="stop" data-j="${j}"><div class="st-h"><span class="num" style="background:${s.p==="hotel"?"#111":color}">${s.p==="hotel"?"🏨":j+1}</span><span class="t">${s.t}</span><span class="n">${nm(s.p)}</span></div><div class="st-b">${s.txt}</div>${s.bring?`<div class="bring">🎒 ${s.bring}</div>`:""}${s.warn?`<div class="warn">⚠️ ${s.warn}</div>`:""}</div>`).join("");
-  h+=`<div class="foot">时间为预估，以各项预约为准。地图上的虚线表示先后顺序，不是实际行车路线。车程按路线距离估算，没有算堵车；早上 7–9 点、下午 3–6 点 H1 高速经常堵，留出 10–20 分钟。点"谷歌地图"可以看当时的实时路况。</div>`;
+  h+=`<div class="foot">时间为预估，以各项预约为准。地图上的实线是开车、打车的实际道路路线，虚线是步行或坐船（只表示方向）。车程按路线距离估算，没有算堵车；早上 7–9 点、下午 3–6 点 H1 高速经常堵，留出 10–20 分钟。点"谷歌地图"可以看当时的实时路况。</div>`;
   box.innerHTML=h;
   box.querySelectorAll(".stop").forEach(el=>el.onclick=()=>{const j=+el.dataset.j;box.querySelectorAll(".stop").forEach(x=>x.classList.toggle("on",x===el));const m=mk[j];
     if(m){map.flyTo(m.getLatLng(),13,{duration:.6});m.openPopup();}else map.flyTo(HOTEL,14,{duration:.6});});}
 function overview(box){
-  DAYS.forEach(d=>{const pts=d.stops.map(s=>pt(s.p));const c=d.car==="yes"||d.car==="pick";L.polyline(pts,{color:c?"#fb7185":"#e2e8f0",weight:c?4:2.5,opacity:.9}).addTo(layer);});
+  DAYS.forEach((d,i)=>{const pts=d.stops.map(s=>pt(s.p));const c=d.car==="yes"||d.car==="pick";for(let j=1;j<pts.length;j++){const r=(typeof ROAD!=="undefined")&&ROAD[i+"-"+j];L.polyline(r||[pts[j-1],pts[j]],{color:c?"#fb7185":"#e2e8f0",weight:c?4:2.5,opacity:.9}).addTo(layer);}});
   map.flyToBounds([[21.25,-158.12],[21.70,-157.68]],{duration:.8});
   box.innerHTML=`<h2>总览</h2>
   <div class="box"><h3>📅 每天安排</h3><table>${DAYS.map((d,i)=>`<tr><td style="white-space:nowrap"><a href="#${i}" onclick="show('${i}')">${d.d} ${d.w}</a></td><td>${d.type.includes("sea")?"🌊":"🏔"} ${d.title}</td><td>${carBadge(d.car)}</td></tr>`).join("")}</table></div>
